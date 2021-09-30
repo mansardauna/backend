@@ -1,13 +1,8 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator');
 require('dotenv').config();
 
-// if (process.argv.length < 3) {
-//   console.log('Please provide the password as an argument: node mongo.js <password>')
-//   process.exit(1)
-// }
-
-
-const url = 'mongodb+srv://sardauna:sardauna@cluster0.jjpmp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const url = process.env.MONGODB_URI
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => {
@@ -17,11 +12,35 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log('error connecting to MongoDB:', error.message)
   })
 
-const blogSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
+
+const blogSchema = mongoose.Schema({
+  title: {
+    type: String,
+    minlength: 3,
+    required: true,
+    unique: true
+  },
+  author: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
+    minlength: 3,
+    required: true
+  },
+  likes: {
+    type: Number
+  },
+  comments: [{
+    type: String
+  }],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
 })
 
 
@@ -32,5 +51,6 @@ blogSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
+blogSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Blog', blogSchema)
