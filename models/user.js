@@ -1,5 +1,16 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+require('dotenv').config()
+
+// const url = `mongodb+srv://sardauna:sardauna@cluster0.jjpmp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+
+// mongoose.connect(url)
+//   .then(result => {
+//     console.log('connected to MongoDB')
+//   })
+//   .catch((error) => {
+//     console.log('error connecting to MongoDB:', error.message)
+//   })
 
 const userSchema = new mongoose.Schema({
   username: {

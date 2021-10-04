@@ -1,19 +1,18 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator');
-require('dotenv').config();
 
-const url = process.env.MONGODB_URI
+// mongoose.set('useFindAndModify', false)
+// mongoose.set('useCreateIndex', true)
+// const url = `mongodb+srv://sardauna:sardauna@cluster0.jjpmp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(result => {
-    console.log('connected to MongoDB')
-  })
-  .catch((error) => {
-    console.log('error connecting to MongoDB:', error.message)
-  })
+// mongoose.connect(url)
+//   .then(result => {
+//     console.log('connected to MongoDB')
+//   })
+//   .catch((error) => {
+//     console.log('error connecting to MongoDB:', error.message)
+//   })
 
-mongoose.set('useFindAndModify', false)
-mongoose.set('useCreateIndex', true)
 
 const blogSchema = mongoose.Schema({
   title: {
