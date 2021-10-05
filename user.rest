@@ -1,0 +1,12 @@
+GET http://localhost:3035/api/users
+
+###
+
+POST http://localhost:3035/api/users
+content-type: application/json
+{
+  "username": "mansur",
+  "name": "sardauna mansur",
+  "passwordHash": "mansur",
+    
+}
